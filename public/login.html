@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaManager · Iniciar sesión</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <script>
+    if (localStorage.getItem('aquamanager_token')) location.replace('/');
+  </script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+  <main class="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-4 py-10">
+    <div class="mb-6 flex items-center gap-3">
+      <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-600 text-xl text-white">💧</div>
+      <div>
+        <p class="text-base font-semibold text-slate-900">AquaManager</p>
+        <p class="text-xs text-slate-500">Acceso al panel de reparto</p>
+      </div>
+    </div>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h1 class="text-xl font-semibold text-slate-900">Iniciar sesión</h1>
+      <p class="mt-1 text-sm text-slate-500">Ingresa con el correo de tu cuenta.</p>
+      <div id="banner" class="mt-4 hidden rounded-xl border px-4 py-3 text-sm" role="status"></div>
+
+      <form id="form-login" class="mt-5 space-y-4">
+        <div>
+          <label for="correo" class="mb-1.5 block text-sm font-medium text-slate-700">Correo</label>
+          <input id="correo" name="correo" type="email" required autocomplete="username" placeholder="usuario@correo.com" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:ring-2">
+        </div>
+        <div>
+          <label for="password" class="mb-1.5 block text-sm font-medium text-slate-700">Contraseña</label>
+          <input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 focus:border-sky-400 focus:ring-2">
+        </div>
+        <button id="btn-entrar" type="submit" class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">
+          Entrar
+        </button>
+      </form>
+
+      <p class="mt-4 text-sm text-slate-500">
+        <a href="/recuperar.html" class="font-medium text-sky-700 hover:text-sky-900">¿Olvidó su contraseña?</a>
+      </p>
+    </section>
+
+    <p class="mt-4 text-center text-sm text-slate-500">
+      ¿No tienes cuenta?
+      <a href="/registro.html" class="font-medium text-sky-700 hover:text-sky-900">Crear cuenta</a>
+    </p>
+  </main>
+  <script src="/login.js"></script>
+</body>
+</html>

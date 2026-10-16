@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaManager · Nueva contraseña</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+  <main class="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-4 py-10">
+    <header class="mb-6 rounded-2xl bg-blue-800 px-6 py-5 text-white shadow-sm">
+      <p class="text-xl font-semibold">Nueva contraseña</p>
+      <p class="mt-1 text-sm text-blue-100">El enlace ya te trajo de vuelta al sistema.</p>
+    </header>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ol class="mb-5 grid grid-cols-3 gap-2 text-center text-xs">
+        <li data-paso="6" class="rounded-xl border border-slate-200 px-2 py-2">6. Enlace</li>
+        <li data-paso="7" class="rounded-xl border border-slate-200 px-2 py-2">7. Contraseña</li>
+        <li data-paso="8" class="rounded-xl border border-slate-200 px-2 py-2">8. Base de datos</li>
+      </ol>
+
+      <h1 id="titulo" class="text-lg font-semibold text-slate-900">Crea tu nueva contraseña</h1>
+      <p id="ayuda" class="mt-1 text-sm text-slate-500">Escríbela dos veces. Al guardarla, el token de este enlace se desactiva.</p>
+      <div id="banner" class="mt-4 hidden rounded-xl border px-4 py-3 text-sm" role="status"></div>
+
+      <form id="form-restablecer" class="mt-5 space-y-4">
+        <div>
+          <label for="password" class="mb-1.5 block text-sm font-medium text-slate-700">Nueva contraseña</label>
+          <input id="password" type="password" required minlength="8" autocomplete="new-password" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 focus:border-sky-400 focus:ring-2">
+        </div>
+        <div>
+          <label for="confirmacion" class="mb-1.5 block text-sm font-medium text-slate-700">Confirmar contraseña</label>
+          <input id="confirmacion" type="password" required minlength="8" autocomplete="new-password" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 focus:border-sky-400 focus:ring-2">
+        </div>
+        <button id="btn-guardar" type="submit" class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">
+          Guardar contraseña
+        </button>
+      </form>
+    </section>
+  </main>
+  <script src="/restablecer.js"></script>
+</body>
+</html>

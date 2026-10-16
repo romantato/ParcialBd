@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaManager · Clientes</title>
+  <script>
+    if (!localStorage.getItem('aquamanager_token')) location.replace('/login.html');
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+  <div class="min-h-screen lg:flex">
+    <aside class="flex w-full flex-col border-b border-slate-800 bg-slate-900 text-slate-300 lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+      <div class="flex items-center gap-3 px-5 py-5">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 text-xl">💧</div>
+        <div>
+          <p class="text-sm font-semibold tracking-tight text-white">AquaManager</p>
+          <p class="text-xs text-slate-400">Última milla</p>
+        </div>
+      </div>
+
+      <nav class="flex gap-1 px-3 pb-4 lg:block lg:flex-1 lg:px-3 lg:py-2">
+        <p class="mb-2 hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 lg:block">Operación</p>
+        <a id="nav-clientes" href="#clientes" class="flex items-center gap-3 rounded-lg bg-sky-500/15 px-3 py-2.5 text-sm font-medium text-sky-300 ring-1 ring-inset ring-sky-400/30">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Clientes
+        </a>
+        <button id="btn-reportes" type="button" class="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path>
+          </svg>
+          Generar Reportes
+        </button>
+      </nav>
+
+      <div class="mt-auto hidden border-t border-slate-800 px-5 py-4 lg:block">
+        <p class="text-xs text-slate-500">Distribución de agua</p>
+        <p class="mt-1 text-xs text-slate-400">Panel de puntos de entrega</p>
+      </div>
+    </aside>
+
+    <main class="min-w-0 flex-1 bg-slate-50">
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <header class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-sky-600">Directorio</p>
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Clientes</h1>
+            <p class="mt-1 text-sm text-slate-500">Puntos de entrega registrados para la ruta de reparto.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-left sm:text-right">
+              <p id="usuario-nombre" class="text-sm font-medium text-slate-900"></p>
+              <p id="usuario-rol" class="text-xs text-slate-400"></p>
+            </div>
+            <button id="btn-salir" type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100">
+              Salir
+            </button>
+          </div>
+        </header>
+
+        <section class="mb-6 grid gap-4 sm:grid-cols-3" aria-label="Métricas">
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Total clientes</p>
+            <p id="metric-total" class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">0</p>
+            <p class="mt-1 text-xs text-slate-400">Registrados en el directorio</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Nuevos esta semana</p>
+            <p id="metric-semana" class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">0</p>
+            <p class="mt-1 text-xs text-slate-400">Altas desde el lunes</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Tipos de envase</p>
+            <p id="metric-envases" class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">0</p>
+            <p class="mt-1 text-xs text-slate-400">Variantes en uso</p>
+          </article>
+        </section>
+
+        <div id="banner" class="mb-4 hidden rounded-xl border px-4 py-3 text-sm" role="status"></div>
+
+        <section id="panel-reportes" class="mb-6 hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 class="text-base font-semibold text-slate-900">Generar reportes</h2>
+          <p class="mt-1 text-sm text-slate-500">Descarga el directorio de clientes en PDF o Excel.</p>
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+            <button id="btn-pdf" type="button" class="rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60">
+              Descargar Reporte PDF
+            </button>
+            <button id="btn-excel" type="button" class="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60">
+              Descargar Reporte Excel
+            </button>
+          </div>
+        </section>
+
+        <section class="grid items-start gap-6 lg:grid-cols-3">
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
+            <div class="flex flex-col gap-3 border-b border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="text-base font-semibold text-slate-900">Clientes registrados</h2>
+                <p class="text-xs text-slate-500">Listado de puntos de entrega</p>
+              </div>
+              <label class="relative block sm:w-56">
+                <span class="sr-only">Buscar cliente</span>
+                <input id="busqueda" type="search" placeholder="Buscar nombre o alias" class="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-3 pr-3 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-2">
+              </label>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-left text-sm">
+                <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                  <tr>
+                    <th class="px-5 py-3 font-medium">Cliente</th>
+                    <th class="px-5 py-3 font-medium">Dirección</th>
+                    <th class="px-5 py-3 font-medium">Envase</th>
+                    <th class="px-5 py-3 text-right font-medium">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-clientes" class="divide-y divide-slate-100">
+                  <tr>
+                    <td colspan="4" class="px-5 py-10 text-center text-sm text-slate-400">Cargando clientes…</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
+            <h2 id="form-titulo" class="text-base font-semibold text-slate-900">Nuevo cliente</h2>
+            <p id="form-ayuda" class="mt-1 text-xs text-slate-500">Registra un punto de entrega para la ruta.</p>
+
+            <form id="form-cliente" class="mt-5 space-y-4">
+              <div>
+                <label for="nombre" class="mb-1.5 block text-sm font-medium text-slate-700">Nombre</label>
+                <input id="nombre" name="nombre" required maxlength="150" placeholder="María López" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:ring-2">
+              </div>
+              <div>
+                <label for="alias" class="mb-1.5 block text-sm font-medium text-slate-700">Alias</label>
+                <input id="alias" name="alias" maxlength="100" placeholder="Casa norte" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:ring-2">
+              </div>
+              <div>
+                <label for="direccion" class="mb-1.5 block text-sm font-medium text-slate-700">Dirección</label>
+                <textarea id="direccion" name="direccion" required maxlength="255" rows="3" placeholder="Calle 12 #45-10, barrio Centro" class="w-full resize-none rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:ring-2"></textarea>
+              </div>
+              <div>
+                <label for="tipo_envase" class="mb-1.5 block text-sm font-medium text-slate-700">Tipo de envase</label>
+                <select id="tipo_envase" name="tipo_envase" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none ring-sky-500 focus:border-sky-400 focus:ring-2">
+                  <option value="">Selecciona un envase</option>
+                  <option value="brisa">Brisa</option>
+                  <option value="cristal">Cristal</option>
+                  <option value="redondo">Redondo</option>
+                  <option value="generico">Genérico</option>
+                  <option value="pet">PET</option>
+                </select>
+              </div>
+
+              <div class="flex gap-2 pt-1">
+                <button id="btn-guardar" type="submit" class="flex-1 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60">
+                  Registrar cliente
+                </button>
+                <button id="btn-cancelar" type="button" class="hidden rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </aside>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

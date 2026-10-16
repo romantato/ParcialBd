@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaManager · Recuperar contraseña</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+  <main class="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <a href="/login.html" class="text-sm font-medium text-sky-700 hover:text-sky-900">Volver al inicio de sesión</a>
+
+    <header class="mt-4 rounded-2xl bg-blue-800 px-6 py-5 text-white shadow-sm">
+      <p class="text-2xl font-semibold">¿Olvidó su contraseña?</p>
+      <p class="mt-1 text-sm text-blue-100">Siga estos pasos para recuperar el acceso a su cuenta.</p>
+    </header>
+
+    <div class="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <ol id="pasos" class="grid gap-3 sm:grid-cols-2">
+        <li data-paso="1" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 1</p>
+          <p class="mt-1 font-semibold text-slate-900">Usuario</p>
+          <p class="mt-1 text-sm text-slate-500">Solicita la recuperación de contraseña.</p>
+        </li>
+        <li data-paso="2" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 2</p>
+          <p class="mt-1 font-semibold text-slate-900">Ingresa correo</p>
+          <p class="mt-1 text-sm text-slate-500">Proporciona el correo registrado en el sistema.</p>
+        </li>
+        <li data-paso="3" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 3</p>
+          <p class="mt-1 font-semibold text-slate-900">Sistema verifica usuario</p>
+          <p class="mt-1 text-sm text-slate-500">Se valida que el correo corresponda a un usuario registrado.</p>
+        </li>
+        <li data-paso="4" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 4</p>
+          <p class="mt-1 font-semibold text-slate-900">Generación de token temporal</p>
+          <p class="mt-1 text-sm text-slate-500">Se genera un token único para restablecer la contraseña.</p>
+        </li>
+        <li data-paso="5" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 5</p>
+          <p class="mt-1 font-semibold text-slate-900">Envío de correo</p>
+          <p class="mt-1 text-sm text-slate-500">Se envía el enlace de recuperación, que incluye el token.</p>
+        </li>
+        <li data-paso="6" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 6</p>
+          <p class="mt-1 font-semibold text-slate-900">Usuario accede al enlace</p>
+          <p class="mt-1 text-sm text-slate-500">Al abrirlo, el sistema muestra la pantalla para restablecer la contraseña.</p>
+        </li>
+        <li data-paso="7" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 7</p>
+          <p class="mt-1 font-semibold text-slate-900">Nueva contraseña</p>
+          <p class="mt-1 text-sm text-slate-500">Ingresa y confirma la nueva contraseña.</p>
+        </li>
+        <li data-paso="8" class="rounded-2xl border bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Paso 8</p>
+          <p class="mt-1 font-semibold text-slate-900">Actualización en BD</p>
+          <p class="mt-1 text-sm text-slate-500">Se guarda la contraseña y se desactiva el token de recuperación.</p>
+        </li>
+      </ol>
+
+      <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
+        <h1 id="form-titulo" class="text-lg font-semibold text-slate-900">Ingresa tu correo</h1>
+        <p id="form-ayuda" class="mt-1 text-sm text-slate-500">Te enviaremos un enlace temporal para crear una nueva contraseña.</p>
+        <div id="banner" class="mt-4 hidden rounded-xl border px-4 py-3 text-sm" role="status"></div>
+
+        <form id="form-recuperar" class="mt-5 space-y-4">
+          <div>
+            <label for="correo" class="mb-1.5 block text-sm font-medium text-slate-700">Correo</label>
+            <input id="correo" type="email" required placeholder="usuario@correo.com" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none ring-sky-500 placeholder:text-slate-400 focus:border-sky-400 focus:ring-2">
+          </div>
+          <button id="btn-enviar" type="submit" class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60">
+            Enviar
+          </button>
+        </form>
+
+        <div id="aviso-correo" class="mt-4 hidden rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+          <p class="font-semibold">Revisa tu bandeja de entrada</p>
+          <p id="aviso-detalle" class="mt-1"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="/recuperar.js"></script>
+</body>
+</html>
