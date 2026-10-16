@@ -120,12 +120,43 @@ async function listarClientesReporte() {
   return rows;
 }
 
+async function listarVentasReporte() {
+  const { rows } = await pool.query(
+    `SELECT c.nombre AS cliente,
+            u.nombre AS repartidor,
+            v.monto,
+            v.metodo_pago,
+            v.estado_deuda,
+            v.fecha_venta
+     FROM ventas v
+     JOIN clientes c ON c.id = v.cliente_id
+     JOIN usuarios u ON u.id = v.repartidor_id
+     ORDER BY v.fecha_venta DESC`
+  );
+
+  return rows.map((fila) => ({
+    cliente: fila.cliente,
+    repartidor: fila.repartidor,
+    monto: Number(fila.monto).toLocaleString('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }),
+    metodo_pago: fila.metodo_pago,
+    estado_deuda: fila.estado_deuda,
+    fecha_venta: new Date(fila.fecha_venta).toLocaleString('es-CO', {
+      dateStyle: 'short',
+      timeStyle: 'short',
+      timeZone: 'America/Bogota',
+    }),
+  }));
+}
+
 app.use(cors());
 app.use(express.json());
 registrarAuth(app, pool);
 app.use('/api/clientes', requireAuth);
 app.use('/api/reportes', requireAuth);
-registrarReportes(app, listarClientesReporte);
+registrarReportes(app, {
+  clientes: listarClientesReporte,
+  ventas: listarVentasReporte,
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/clientes', async (_req, res) => {

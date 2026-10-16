@@ -88,14 +88,32 @@
 
         <section id="panel-reportes" class="mb-6 hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 class="text-base font-semibold text-slate-900">Generar reportes</h2>
-          <p class="mt-1 text-sm text-slate-500">Descarga el directorio de clientes en PDF o Excel.</p>
-          <div class="mt-4 flex flex-col gap-3 sm:flex-row">
-            <button id="btn-pdf" type="button" class="rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60">
-              Descargar Reporte PDF
-            </button>
-            <button id="btn-excel" type="button" class="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60">
-              Descargar Reporte Excel
-            </button>
+          <p class="mt-1 text-sm text-slate-500">Dos reportes distintos, cada uno en PDF y en Excel, con los datos actuales de la base.</p>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-xl border border-slate-200 p-4">
+              <h3 class="text-sm font-semibold text-slate-900">Reporte de clientes</h3>
+              <p class="mt-1 text-xs text-slate-500">Nombre, alias, dirección y envase.</p>
+              <div class="mt-3 flex flex-col gap-2">
+                <button id="btn-pdf" type="button" class="rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60">
+                  Descargar PDF
+                </button>
+                <button id="btn-excel" type="button" class="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60">
+                  Descargar Excel
+                </button>
+              </div>
+            </article>
+            <article class="rounded-xl border border-slate-200 p-4">
+              <h3 class="text-sm font-semibold text-slate-900">Reporte de ventas</h3>
+              <p class="mt-1 text-xs text-slate-500">Cliente, repartidor, monto, pago y estado.</p>
+              <div class="mt-3 flex flex-col gap-2">
+                <button id="btn-pdf-ventas" type="button" class="rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60">
+                  Descargar PDF
+                </button>
+                <button id="btn-excel-ventas" type="button" class="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60">
+                  Descargar Excel
+                </button>
+              </div>
+            </article>
           </div>
         </section>
 

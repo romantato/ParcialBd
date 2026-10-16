@@ -294,6 +294,14 @@ document.getElementById('btn-excel').addEventListener('click', (event) => {
   descargarReporte('/api/reportes/clientes/excel', 'reporte-clientes.xlsx', event.currentTarget);
 });
 
+document.getElementById('btn-pdf-ventas').addEventListener('click', (event) => {
+  descargarReporte('/api/reportes/ventas/pdf', 'reporte-ventas.pdf', event.currentTarget);
+});
+
+document.getElementById('btn-excel-ventas').addEventListener('click', (event) => {
+  descargarReporte('/api/reportes/ventas/excel', 'reporte-ventas.xlsx', event.currentTarget);
+});
+
 cargarClientes().catch((err) => {
   els.tabla.innerHTML = `<tr><td colspan="4" class="px-5 py-10 text-center text-sm text-rose-500">${escapar(err.message)}</td></tr>`;
   mostrarBanner(err.message, 'error');
